@@ -8,6 +8,7 @@ public interface ResponseMessage {
     // HTTP Status 400
     String VALIDATION_FAILED = "Validation Failed";
     String DUPLICATED_EMAIL = "Duplicate Email";
+    String DUPLICATED_NICKNAME = "Duplicate nickname";
     String DUPLICATED_TEL_NUMBER = "Duplicate Telnumber";
     String NOT_EXISTED_USER = "Not existed User";
     String NOT_EXISTED_BOARD = "Not existed Board";
