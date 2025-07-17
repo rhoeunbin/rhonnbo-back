@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 import com.rhonn.board_back.entity.UserEntity;
 
 @Repository
-public interface UserRespository extends JpaRepository<UserEntity, String> {
+public interface UserRepository extends JpaRepository<UserEntity, String> {
+
+    boolean existsByEmail(String email);
+
+    boolean existsByNickname(String nickname);
+
+    boolean existsByTelNumber(String telNumber);
 
 }
