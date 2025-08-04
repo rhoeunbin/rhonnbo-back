@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.rhonn.board_back.dto.request.board.CreateBoardRequestDto;
+import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class BoardEntity {
     private int viewCount;
     private String writerEmail;
 
-    public BoardEntity(CreateBoardRequestDto dto, String email) {
+    public BoardEntity(PostBoardRequestDto dto, String email) {
 
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

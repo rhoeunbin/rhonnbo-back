@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreateBoardRequestDto {
+public class PostBoardRequestDto {
 
     @NotBlank
     private String title;

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.rhonn.board_back.dto.request.board.CreateBoardRequestDto;
+import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
 import com.rhonn.board_back.dto.response.ResponseDto;
 import com.rhonn.board_back.dto.response.board.CreateBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
@@ -78,7 +78,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public ResponseEntity<? super CreateBoardResponseDto> createBoard(CreateBoardRequestDto dto, String email) {
+    public ResponseEntity<? super CreateBoardResponseDto> createBoard(PostBoardRequestDto dto, String email) {
 
         try {
             boolean existedEmail = userRepository.existsByEmail(email);

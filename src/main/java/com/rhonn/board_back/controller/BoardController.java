@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rhonn.board_back.dto.response.board.CreateBoardResponseDto;
-import com.rhonn.board_back.dto.request.board.CreateBoardRequestDto;
+import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
 import com.rhonn.board_back.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,7 @@ public class BoardController {
 
     @PostMapping("")
     public ResponseEntity<? super CreateBoardResponseDto> createBoard(
-            @RequestBody @Valid CreateBoardRequestDto requestBody,
+            @RequestBody @Valid PostBoardRequestDto requestBody,
             @AuthenticationPrincipal String email) {
         ResponseEntity<? super CreateBoardResponseDto> response = boardService.createBoard(requestBody, email);
         return response;
