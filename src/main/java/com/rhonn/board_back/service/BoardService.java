@@ -4,6 +4,8 @@ import org.springframework.http.ResponseEntity;
 
 import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
 import com.rhonn.board_back.dto.response.board.PostBoardResponseDto;
+import com.rhonn.board_back.dto.request.board.PostCommentRequestDto;
+import com.rhonn.board_back.dto.response.board.PostCommentResponseDto;
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
@@ -15,6 +17,9 @@ public interface BoardService {
     ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList(Integer boardNumber);
 
     ResponseEntity<? super PostBoardResponseDto> createBoard(PostBoardRequestDto dto, String email);
+
+    ResponseEntity<? super PostCommentResponseDto> createComment(PostCommentRequestDto dto, Integer boardNumber,
+            String email);
 
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
 }

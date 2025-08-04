@@ -7,15 +7,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
+import com.rhonn.board_back.dto.request.board.PostCommentRequestDto;
 import com.rhonn.board_back.dto.response.ResponseDto;
 import com.rhonn.board_back.dto.response.board.PostBoardResponseDto;
+import com.rhonn.board_back.dto.response.board.PostCommentResponseDto;
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.rhonn.board_back.entity.BoardEntity;
+import com.rhonn.board_back.entity.CommentEntity;
 import com.rhonn.board_back.entity.FavoriteEntity;
 import com.rhonn.board_back.entity.ImageEntity;
 import com.rhonn.board_back.repository.BoardRepository;
+import com.rhonn.board_back.repository.CommentRepository;
 import com.rhonn.board_back.repository.FavoriteRepository;
 import com.rhonn.board_back.repository.ImageRepository;
 import com.rhonn.board_back.repository.UserRepository;
@@ -30,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
     private final FavoriteRepository favoriteRepository;
@@ -105,6 +110,31 @@ public class BoardServiceImpl implements BoardService {
         }
 
         return PostBoardResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PostCommentResponseDto> createComment(PostCommentRequestDto dto, Integer boardNumber,
+            String email) {
+        try {
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null)
+                return PostCommentResponseDto.notExistBoard();
+
+            boolean existedUser = userRepository.existsByEmail(email);
+            if (!existedUser)
+                return PostCommentResponseDto.notExistUser();
+
+            CommentEntity commentEntity = new CommentEntity(dto, boardNumber, email);
+            commentRepository.save(commentEntity);
+
+            boardEntity.increaseCommentCount();
+            boardRepository.save(boardEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return PostCommentResponseDto.success();
     }
 
     @Override

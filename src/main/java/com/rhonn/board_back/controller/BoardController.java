@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rhonn.board_back.dto.response.board.PostBoardResponseDto;
 import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
+import com.rhonn.board_back.dto.request.board.PostCommentRequestDto;
 import com.rhonn.board_back.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
+import com.rhonn.board_back.dto.response.board.PostCommentResponseDto;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -49,6 +51,16 @@ public class BoardController {
             @RequestBody @Valid PostBoardRequestDto requestBody,
             @AuthenticationPrincipal String email) {
         ResponseEntity<? super PostBoardResponseDto> response = boardService.createBoard(requestBody, email);
+        return response;
+    }
+
+    @PostMapping("/{boardNumber}/comment")
+    public ResponseEntity<? super PostCommentResponseDto> createComment(
+            @RequestBody @Valid PostCommentRequestDto requestBody,
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email) {
+        ResponseEntity<? super PostCommentResponseDto> response = boardService.createComment(requestBody, boardNumber,
+                email);
         return response;
     }
 
