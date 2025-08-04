@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
 import com.rhonn.board_back.dto.response.ResponseDto;
-import com.rhonn.board_back.dto.response.board.CreateBoardResponseDto;
+import com.rhonn.board_back.dto.response.board.PostBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
@@ -78,12 +78,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public ResponseEntity<? super CreateBoardResponseDto> createBoard(PostBoardRequestDto dto, String email) {
+    public ResponseEntity<? super PostBoardResponseDto> createBoard(PostBoardRequestDto dto, String email) {
 
         try {
             boolean existedEmail = userRepository.existsByEmail(email);
             if (!existedEmail)
-                return CreateBoardResponseDto.notExistUser();
+                return PostBoardResponseDto.notExistUser();
 
             BoardEntity boardEntity = new BoardEntity(dto, email);
             boardRepository.save(boardEntity);
@@ -104,7 +104,7 @@ public class BoardServiceImpl implements BoardService {
             return ResponseDto.databaseError();
         }
 
-        return CreateBoardResponseDto.success();
+        return PostBoardResponseDto.success();
     }
 
     @Override

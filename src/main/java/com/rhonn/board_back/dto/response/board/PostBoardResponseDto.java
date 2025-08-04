@@ -10,14 +10,14 @@ import com.rhonn.board_back.dto.response.ResponseDto;
 import lombok.Getter;
 
 @Getter
-public class CreateBoardResponseDto extends ResponseDto {
+public class PostBoardResponseDto extends ResponseDto {
 
-    private CreateBoardResponseDto() {
+    private PostBoardResponseDto() {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
     }
 
-    public static ResponseEntity<CreateBoardResponseDto> success() {
-        CreateBoardResponseDto result = new CreateBoardResponseDto();
+    public static ResponseEntity<PostBoardResponseDto> success() {
+        PostBoardResponseDto result = new PostBoardResponseDto();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

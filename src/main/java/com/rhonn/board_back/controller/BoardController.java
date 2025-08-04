@@ -3,7 +3,7 @@ package com.rhonn.board_back.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rhonn.board_back.dto.response.board.CreateBoardResponseDto;
+import com.rhonn.board_back.dto.response.board.PostBoardResponseDto;
 import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
 import com.rhonn.board_back.service.BoardService;
 
@@ -45,10 +45,10 @@ public class BoardController {
     }
 
     @PostMapping("")
-    public ResponseEntity<? super CreateBoardResponseDto> createBoard(
+    public ResponseEntity<? super PostBoardResponseDto> createBoard(
             @RequestBody @Valid PostBoardRequestDto requestBody,
             @AuthenticationPrincipal String email) {
-        ResponseEntity<? super CreateBoardResponseDto> response = boardService.createBoard(requestBody, email);
+        ResponseEntity<? super PostBoardResponseDto> response = boardService.createBoard(requestBody, email);
         return response;
     }
 
