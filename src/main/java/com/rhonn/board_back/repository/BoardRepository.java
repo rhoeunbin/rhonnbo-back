@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
 
+    boolean existsByBoardNumber(Integer boardNumber);
+
     BoardEntity findByBoardNumber(Integer boardNumber);
 
     @Query(value = "SELECT " +
