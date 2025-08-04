@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 
 import javax.validation.Valid;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
+import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -35,6 +35,13 @@ public class BoardController {
     public ResponseEntity<? super GetBoardResponseDto> getBoard(
             @PathVariable("boardNumber") Integer boardNumber) {
         ResponseEntity<? super GetBoardResponseDto> response = boardService.getBoard(boardNumber);
+        return response;
+    }
+
+    @GetMapping("/{boardNumber}/favorite-list")
+    public ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList(
+            @PathVariable("boardNumber") Integer boardNumber) {
+        ResponseEntity<? super GetFavoriteListResponseDto> response = boardService.getFavoriteList(boardNumber);
         return response;
     }
 
