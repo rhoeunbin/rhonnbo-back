@@ -9,12 +9,15 @@ import com.rhonn.board_back.dto.response.board.PostCommentResponseDto;
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
+import com.rhonn.board_back.dto.response.board.GetCommentListResponseDto;
 
 public interface BoardService {
 
     ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber);
 
     ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList(Integer boardNumber);
+
+    ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber);
 
     ResponseEntity<? super PostBoardResponseDto> createBoard(PostBoardRequestDto dto, String email);
 
