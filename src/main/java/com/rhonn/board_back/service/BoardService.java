@@ -10,6 +10,7 @@ import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.rhonn.board_back.dto.response.board.GetCommentListResponseDto;
+import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
 
 public interface BoardService {
 
@@ -25,4 +26,6 @@ public interface BoardService {
             String email);
 
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
+
+    ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
 }
