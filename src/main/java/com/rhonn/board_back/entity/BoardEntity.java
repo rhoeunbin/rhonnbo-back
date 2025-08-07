@@ -38,11 +38,11 @@ public class BoardEntity {
 
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String wrtieDatetime = simpleDateFormat.format(now);
+        String writeDatetime = simpleDateFormat.format(now);
 
         this.title = dto.getTitle();
         this.content = dto.getContent();
-        this.writeDatetime = wrtieDatetime;
+        this.writeDatetime = writeDatetime;
         this.favoriteCount = 0;
         this.commentCount = 0;
         this.viewCount = 0;
