@@ -11,6 +11,7 @@ import com.rhonn.board_back.dto.request.board.PostCommentRequestDto;
 import com.rhonn.board_back.dto.response.ResponseDto;
 import com.rhonn.board_back.dto.response.board.PostBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.PostCommentResponseDto;
+import com.rhonn.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetCommentListResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
@@ -128,6 +129,36 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email) {
+        try {
+            boolean existedUser = userRepository.existsByEmail(email);
+            if (!existedUser)
+                return DeleteBoardResponseDto.notExistUser();
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null)
+                return DeleteBoardResponseDto.notExistBoard();
+
+            String writerEmail = boardEntity.getWriterEmail();
+            boolean isWriter = writerEmail.equals(email);
+            if (!isWriter)
+                return DeleteBoardResponseDto.noPermission();
+
+            imageRepository.deleteByBoardNumber(boardNumber);
+            commentRepository.deleteByBoardNumber(boardNumber);
+            favoriteRepository.deleteByBoardNumber(boardNumber);
+
+            boardRepository.delete(boardEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return DeleteBoardResponseDto.success();
+    }
+
+    @Override
     public ResponseEntity<? super PostCommentResponseDto> createComment(PostCommentRequestDto dto, Integer boardNumber,
             String email) {
         try {
@@ -185,9 +216,7 @@ public class BoardServiceImpl implements BoardService {
     public ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber) {
         System.out.println(
                 "[increaseViewCount] API 호출, boardNumber: " + boardNumber + " at " + java.time.LocalDateTime.now());
-
         try {
-
             // 조회수 올리기
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             if (boardEntity == null)
