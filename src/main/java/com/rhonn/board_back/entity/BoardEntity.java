@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.rhonn.board_back.dto.request.board.PatchBoardRequestDto;
 import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
 
 import lombok.AllArgsConstructor;
@@ -63,5 +64,10 @@ public class BoardEntity {
 
     public void increaseCommentCount() {
         this.commentCount++;
+    }
+
+    public void patchBoard(PatchBoardRequestDto dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
     }
 }

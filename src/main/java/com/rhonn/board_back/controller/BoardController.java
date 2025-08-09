@@ -3,7 +3,7 @@ package com.rhonn.board_back.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rhonn.board_back.dto.response.board.PostBoardResponseDto;
+import com.rhonn.board_back.dto.request.board.PatchBoardRequestDto;
 import com.rhonn.board_back.dto.request.board.PostBoardRequestDto;
 import com.rhonn.board_back.dto.request.board.PostCommentRequestDto;
 import com.rhonn.board_back.service.BoardService;
@@ -22,13 +22,15 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.rhonn.board_back.dto.response.board.PostBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
-import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
-import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
+import com.rhonn.board_back.dto.response.board.PatchBoardResponseDto;
+import com.rhonn.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.PostCommentResponseDto;
 import com.rhonn.board_back.dto.response.board.GetCommentListResponseDto;
+import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
+import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
-import com.rhonn.board_back.dto.response.board.DeleteBoardResponseDto;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -51,6 +53,17 @@ public class BoardController {
     public ResponseEntity<? super GetBoardResponseDto> getBoard(
             @PathVariable("boardNumber") Integer boardNumber) {
         ResponseEntity<? super GetBoardResponseDto> response = boardService.getBoard(boardNumber);
+        return response;
+    }
+
+    // PATCH : 게시물 수정
+    @PatchMapping("/{boardNumber}")
+    public ResponseEntity<? super PatchBoardResponseDto> deleteBoard(
+            @RequestBody @Valid PatchBoardRequestDto requestBody,
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email) {
+        ResponseEntity<? super PatchBoardResponseDto> response = boardService.patchBoard(requestBody, boardNumber,
+                email);
         return response;
     }
 
