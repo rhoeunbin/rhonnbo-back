@@ -14,17 +14,17 @@ import com.rhonn.board_back.entity.BoardListViewEntity;
 import lombok.Getter;
 
 @Getter
-public class GetLatestBoardListResponseDto extends ResponseDto {
+public class GetTop3BoardListResponseDto extends ResponseDto {
 
-    private List<BoardListItem> latestList;
+    private List<BoardListItem> top3List;
 
-    private GetLatestBoardListResponseDto(List<BoardListViewEntity> entities) {
+    private GetTop3BoardListResponseDto(List<BoardListViewEntity> entities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.latestList = BoardListItem.getList(entities);
+        this.top3List = BoardListItem.getList(entities);
     }
 
-    public static ResponseEntity<GetLatestBoardListResponseDto> success(List<BoardListViewEntity> entities) {
-        GetLatestBoardListResponseDto result = new GetLatestBoardListResponseDto(entities);
+    public static ResponseEntity<GetTop3BoardListResponseDto> success(List<BoardListViewEntity> entities) {
+        GetTop3BoardListResponseDto result = new GetTop3BoardListResponseDto(entities);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

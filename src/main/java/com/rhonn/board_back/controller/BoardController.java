@@ -32,6 +32,7 @@ import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.rhonn.board_back.dto.response.board.GetLatestBoardListResponseDto;
+import com.rhonn.board_back.dto.response.board.GetTop3BoardListResponseDto;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -125,6 +126,13 @@ public class BoardController {
     @GetMapping("/latest-list")
     public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList() {
         ResponseEntity<? super GetLatestBoardListResponseDto> response = boardService.getLatestBoardList();
+        return response;
+    }
+
+    // GET : 주간 top3 게시물 리스트 조회
+    @GetMapping("/top3-list")
+    public ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList() {
+        ResponseEntity<? super GetTop3BoardListResponseDto> response = boardService.getTop3BoardList();
         return response;
     }
 }

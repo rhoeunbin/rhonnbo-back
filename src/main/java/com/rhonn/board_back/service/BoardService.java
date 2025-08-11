@@ -16,6 +16,7 @@ import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.rhonn.board_back.dto.response.board.GetLatestBoardListResponseDto;
+import com.rhonn.board_back.dto.response.board.GetTop3BoardListResponseDto;
 
 public interface BoardService {
         ResponseEntity<? super PostBoardResponseDto> createBoard(PostBoardRequestDto dto, String email);
@@ -28,6 +29,8 @@ public interface BoardService {
         ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
 
         ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList();
+
+        ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList();
 
         ResponseEntity<? super PostCommentResponseDto> createComment(PostCommentRequestDto dto, Integer boardNumber,
                         String email);

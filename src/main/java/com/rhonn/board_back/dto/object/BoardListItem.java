@@ -38,7 +38,7 @@ public class BoardListItem {
         this.writerProfileImage = entity.getWriterProfileImage();
     }
 
-    public static List<BoardListItem> copyList(List<BoardListViewEntity> entities) {
+    public static List<BoardListItem> getList(List<BoardListViewEntity> entities) {
         List<BoardListItem> list = new ArrayList<>();
         for (BoardListViewEntity entity : entities) {
             list.add(new BoardListItem(entity));
