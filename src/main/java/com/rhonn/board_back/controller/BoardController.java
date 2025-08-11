@@ -31,6 +31,7 @@ import com.rhonn.board_back.dto.response.board.GetCommentListResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
+import com.rhonn.board_back.dto.response.board.GetLatestBoardListResponseDto;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -117,6 +118,13 @@ public class BoardController {
     public ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(
             @PathVariable("boardNumber") Integer boardNumber) {
         ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
+        return response;
+    }
+
+    // GET : 최신 게시물 리스트 조회
+    @GetMapping("/latest-list")
+    public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList() {
+        ResponseEntity<? super GetLatestBoardListResponseDto> response = boardService.getLatestBoardList();
         return response;
     }
 }

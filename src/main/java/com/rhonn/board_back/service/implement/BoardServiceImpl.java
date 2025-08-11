@@ -17,13 +17,16 @@ import com.rhonn.board_back.dto.response.board.GetBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.GetCommentListResponseDto;
 import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
+import com.rhonn.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.rhonn.board_back.dto.response.board.PatchBoardResponseDto;
 import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.rhonn.board_back.entity.BoardEntity;
+import com.rhonn.board_back.entity.BoardListViewEntity;
 import com.rhonn.board_back.entity.CommentEntity;
 import com.rhonn.board_back.entity.FavoriteEntity;
 import com.rhonn.board_back.entity.ImageEntity;
 import com.rhonn.board_back.repository.BoardRepository;
+import com.rhonn.board_back.repository.BoardListViewRepository;
 import com.rhonn.board_back.repository.CommentRepository;
 import com.rhonn.board_back.repository.FavoriteRepository;
 import com.rhonn.board_back.repository.ImageRepository;
@@ -40,6 +43,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
+    private final BoardListViewRepository boardListViewRepository;
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
@@ -268,5 +272,19 @@ public class BoardServiceImpl implements BoardService {
             return ResponseDto.databaseError();
         }
         return IncreaseViewCountResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList() {
+
+        List<BoardListViewEntity> entities = new ArrayList<>();
+        try {
+            entities = boardListViewRepository.findByOrderByWriteDatetimeDesc();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetLatestBoardListResponseDto.success(entities);
     }
 }
