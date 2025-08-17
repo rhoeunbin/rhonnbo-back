@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.rhonn.board_back.dto.response.ResponseDto;
 import com.rhonn.board_back.dto.response.search.GetPopularListResponseDto;
+import com.rhonn.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.rhonn.board_back.repository.SearchLogRepository;
 import com.rhonn.board_back.repository.resultSet.GetPopularListResultSet;
 import com.rhonn.board_back.service.SearchService;

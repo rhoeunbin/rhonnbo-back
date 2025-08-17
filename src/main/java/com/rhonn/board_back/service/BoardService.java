@@ -17,29 +17,32 @@ import com.rhonn.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.rhonn.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.rhonn.board_back.dto.response.board.GetTop3BoardListResponseDto;
+import com.rhonn.board_back.dto.response.board.GetSearchBoardListResponseDto;
 
 public interface BoardService {
-        ResponseEntity<? super PostBoardResponseDto> createBoard(PostBoardRequestDto dto, String email);
+    ResponseEntity<? super PostBoardResponseDto> createBoard(PostBoardRequestDto dto, String email);
 
-        ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber);
+    ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber);
 
-        ResponseEntity<? super PatchBoardResponseDto> patchBoard(PatchBoardRequestDto dto, Integer boardNumber,
-                        String email);
+    ResponseEntity<? super PatchBoardResponseDto> patchBoard(PatchBoardRequestDto dto, Integer boardNumber,
+            String email);
 
-        ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
+    ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
 
-        ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList();
+    ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList();
 
-        ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList();
+    ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList();
 
-        ResponseEntity<? super PostCommentResponseDto> createComment(PostCommentRequestDto dto, Integer boardNumber,
-                        String email);
+    ResponseEntity<? super GetSearchBoardListResponseDto> getSearchBoardList(String searchWord, String preSearchWord);
 
-        ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber);
+    ResponseEntity<? super PostCommentResponseDto> createComment(PostCommentRequestDto dto, Integer boardNumber,
+            String email);
 
-        ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList(Integer boardNumber);
+    ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber);
 
-        ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
+    ResponseEntity<? super GetFavoriteListResponseDto> getFavoriteList(Integer boardNumber);
 
-        ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
+    ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
+
+    ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
 }

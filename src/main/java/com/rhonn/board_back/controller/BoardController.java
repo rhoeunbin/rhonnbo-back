@@ -33,6 +33,10 @@ import com.rhonn.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.rhonn.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.rhonn.board_back.dto.response.board.GetTop3BoardListResponseDto;
+import com.rhonn.board_back.dto.response.board.GetSearchBoardListResponseDto;
+import com.rhonn.board_back.dto.response.ResponseDto;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -48,6 +52,39 @@ public class BoardController {
             @AuthenticationPrincipal String email) {
         ResponseEntity<? super PostBoardResponseDto> response = boardService.createBoard(requestBody, email);
         return response;
+    }
+
+    // GET : 최신 게시물 리스트 조회
+    @GetMapping("/latest-list")
+    public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList() {
+        ResponseEntity<? super GetLatestBoardListResponseDto> response = boardService.getLatestBoardList();
+        return response;
+    }
+
+    // GET : 주간 top3 게시물 리스트 조회
+    @GetMapping("/top3-list")
+    public ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList() {
+        ResponseEntity<? super GetTop3BoardListResponseDto> response = boardService.getTop3BoardList();
+        return response;
+    }
+
+    @GetMapping(value = { "/search-list/{searchWord}", "/search-list/{searchWord}/{preSearchWord}" })
+    public ResponseEntity<? super GetSearchBoardListResponseDto> getSearchBoardList(
+            @PathVariable("searchWord") String searchWord,
+            @PathVariable(value = "preSearchWord", required = false) String preSearchWord) {
+
+        // 한글 디코딩 처리
+        try {
+            String decodedSearchWord = java.net.URLDecoder.decode(searchWord, "UTF-8");
+
+            ResponseEntity<? super GetSearchBoardListResponseDto> response = boardService.getSearchBoardList(
+                    decodedSearchWord,
+                    preSearchWord);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
 
     // GET : 게시물 조회
@@ -122,17 +159,4 @@ public class BoardController {
         return response;
     }
 
-    // GET : 최신 게시물 리스트 조회
-    @GetMapping("/latest-list")
-    public ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList() {
-        ResponseEntity<? super GetLatestBoardListResponseDto> response = boardService.getLatestBoardList();
-        return response;
-    }
-
-    // GET : 주간 top3 게시물 리스트 조회
-    @GetMapping("/top3-list")
-    public ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList() {
-        ResponseEntity<? super GetTop3BoardListResponseDto> response = boardService.getTop3BoardList();
-        return response;
-    }
 }
