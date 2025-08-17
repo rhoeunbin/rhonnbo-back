@@ -36,8 +36,6 @@ import com.rhonn.board_back.dto.response.board.GetTop3BoardListResponseDto;
 import com.rhonn.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.rhonn.board_back.dto.response.ResponseDto;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 @RestController
 @RequestMapping("/api/v1/board")
 @RequiredArgsConstructor
