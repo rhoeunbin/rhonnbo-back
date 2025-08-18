@@ -18,6 +18,7 @@ import com.rhonn.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.rhonn.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.rhonn.board_back.dto.response.board.GetTop3BoardListResponseDto;
 import com.rhonn.board_back.dto.response.board.GetSearchBoardListResponseDto;
+import com.rhonn.board_back.dto.response.board.GetUserBoardListResponseDto;
 
 public interface BoardService {
     ResponseEntity<? super PostBoardResponseDto> createBoard(PostBoardRequestDto dto, String email);
@@ -29,12 +30,6 @@ public interface BoardService {
 
     ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
 
-    ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList();
-
-    ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList();
-
-    ResponseEntity<? super GetSearchBoardListResponseDto> getSearchBoardList(String searchWord, String preSearchWord);
-
     ResponseEntity<? super PostCommentResponseDto> createComment(PostCommentRequestDto dto, Integer boardNumber,
             String email);
 
@@ -45,4 +40,12 @@ public interface BoardService {
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
 
     ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
+
+    ResponseEntity<? super GetLatestBoardListResponseDto> getLatestBoardList();
+
+    ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList();
+
+    ResponseEntity<? super GetSearchBoardListResponseDto> getSearchBoardList(String searchWord, String preSearchWord);
+
+    ResponseEntity<? super GetUserBoardListResponseDto> getUserBoardList(String email);
 }
